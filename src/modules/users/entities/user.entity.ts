@@ -14,28 +14,26 @@ export class User {
    email: string;
 
    @Column({ nullable: false })
-   firstName: string;
+  name: string;  
 
-   @Column({ nullable: false })
-   lastName: string;
+  /* @Column({ nullable: false })
+   password: string;  */
 
-  @Column({ nullable: false })
-   password: string; 
-
-   @Column({ nullable: false })
+  /*  @Column({ nullable: false })
    profilePicture: string;   
 
    @Column()
    followers: User[];
 
    @Column()
-   following: User[];
+   following: User[]; */
 
    //relation with entity Order
    //@OneToMany(() => Order, (order) => order.user)
    //order: Order[]
-   @OneToMany(() => Tweet, (tweet) => tweet.user)
-   tweet: Tweet[]
+
+    @OneToMany(() => Tweet, (tweet) => tweet.user)
+   tweets: Tweet[] 
 
 
    //primera funcion apunto a la entidad a la que se va a relacionar y la segunda apunta  al campo

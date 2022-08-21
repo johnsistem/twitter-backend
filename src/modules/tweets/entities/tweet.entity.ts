@@ -1,23 +1,25 @@
 import { User } from "src/modules/users/entities/user.entity";
-import { Column, CreateDateColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Tweet {
    @PrimaryGeneratedColumn('increment')
    id: number;
 
    @Column({ nullable: false })
-   body: string;
+   content: string;
 
-   @Column({ nullable: false })
-   author: User;
+  /*  @Column({ nullable: false })
+   author: User; */
 
-   @Column()
-   retweets: Tweet[];
+  /*  @Column()
+   retweets: Tweet[]; */
 
   // @ManyToOne(() => OrderItem, (orderitem) => orderitem.book, { cascade: true })
   // @JoinColumn({ name: 'editorial_id' })
-   @ManyToOne(() => User, (user) => user.tweet, { cascade: true })
-    user: User;
+   
+  @ManyToOne(() => User, (user) => user.tweets, { cascade: true })
+    user: User; 
 
    @CreateDateColumn()
    CreatedAt: Date;

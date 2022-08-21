@@ -7,6 +7,7 @@ import { UpdateTweetDto } from './dto/update-tweet.dto';
 export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
+  //Create a USER
   @Post()
   create(@Body() createTweetDto: CreateTweetDto) {
     return this.tweetsService.create(createTweetDto);

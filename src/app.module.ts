@@ -7,6 +7,21 @@ import { TweetsModule } from './modules/tweets/tweets.module';
 
 @Module({
   imports: [
+    TypeOrmModule.forRoot({
+      type: 'postgres',
+      host: 'localhost',
+      port: 5432,
+      username: 'postgres',
+      password: 'docker',
+     /*  username: 'postgres',
+      password: 'mysecretpassword', */      
+       database: 'twitterdb', 
+      autoLoadEntities: true,
+      synchronize: true,//es solo en modo de desarrollo
+      entities: ['dist/**/*.entity.js'],
+      // migrations: ['dist/database/migrations/*.js'],
+
+    }),
     UsersModule,
     TweetsModule],
   controllers: [AppController],
