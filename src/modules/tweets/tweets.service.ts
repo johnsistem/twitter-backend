@@ -8,14 +8,16 @@ import { Tweet } from './entities/tweet.entity';
 @Injectable()
 export class TweetsService {
    constructor(
-    @InjectRepository(Tweet) private userRepository: Repository<Tweet>
+    @InjectRepository(Tweet) private tweetRepository: Repository<Tweet>
   ) { } 
 
 
   create(createTweetDto: CreateTweetDto) {
     
-    const { } = createTweetDto;
-    return 'This action adds a new tweet';
+    const {content}= createTweetDto;
+    return this.tweetRepository.save({
+      content:content
+    });
   }
 
   findAll() {

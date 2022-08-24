@@ -4,22 +4,25 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { TweetsModule } from './modules/tweets/tweets.module';
+//import { PostgresModule } from 'nest-postgres';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'postgres',
+     // connectionString: 'postgresql://postgres:pass123@localhost:5432/nest',
+      type: 'mysql',
       host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'docker',
+      port: 3306,
+     username: 'root',
+     password: "root",
+     database: 'twitterdb',
      /*  username: 'postgres',
       password: 'mysecretpassword', */      
-       database: 'twitterdb', 
-      autoLoadEntities: true,
+       
+     autoLoadEntities: true,
       synchronize: true,//es solo en modo de desarrollo
-      entities: ['dist/**/*.entity.js'],
-      // migrations: ['dist/database/migrations/*.js'],
+     entities: ['dist/**/*.entity.js'],
+     // migrations: ['dist/database/migrations/*.js'],
 
     }),
     UsersModule,
