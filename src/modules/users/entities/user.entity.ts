@@ -1,4 +1,5 @@
 //import { Order } from 'src/modules/order/entities/order.entity';
+import { Exclude } from 'class-transformer';
 import { Tweet } from 'src/modules/tweets/entities/tweet.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
@@ -7,17 +8,15 @@ export class User {
    @PrimaryGeneratedColumn('increment')
    id: number;
 
-   @Column({ nullable: false })
+   @Column({ nullable: false, type: 'varchar' })
    username: string;
 
-   @Column({ nullable: false })
+   @Column({ nullable: false, type: 'varchar' })
    email: string;
-
-   @Column({ nullable: false })
-  name: string;  
-
-  /* @Column({ nullable: false })
-   password: string;  */
+  
+   @Exclude()
+   @Column({ nullable: false, type: 'varchar' })
+   password: string;  
 
   /*  @Column({ nullable: false })
    profilePicture: string;   

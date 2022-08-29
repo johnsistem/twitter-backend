@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository } from 'typeorm/repository/Repository';
+//import { Repository } from 'typeorm';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
 import { Tweet } from './entities/tweet.entity';
@@ -12,12 +13,14 @@ export class TweetsService {
   ) { } 
 
 
-  create(createTweetDto: CreateTweetDto) {
+  async create(createTweetDto: CreateTweetDto) {
+        
+    //const { content } = createTweetDto;
+    const tweet = this.tweetRepository.create(createTweetDto)
+      return this.tweetRepository.save(tweet); 
     
-    const {content}= createTweetDto;
-    return this.tweetRepository.save({
-      content:content
-    });
+    
+  
   }
 
   findAll() {

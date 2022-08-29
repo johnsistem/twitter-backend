@@ -6,6 +6,7 @@ import { Request, response, Response } from 'express';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { User } from './entities/user.entity';
+import { LoginAuthDto } from '../auth/dto/login-auth.dto';
 
 @Injectable()
 export class UsersService {
@@ -24,9 +25,22 @@ export class UsersService {
     return this.userRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  
+
+  async findOne(id:number):Promise<User>{
+    //const {email } = userLoginAuthDto
+    const user = await this.userRepository.findOne({ where: { id } } )
+    return user
   }
+
+
+/*   async findOne(userLoginAuthDto: LoginAuthDto):Promise<User>{
+    const {email } = userLoginAuthDto
+    const user = await this.userRepository.findOne({ where: { email } })
+    return user
+  } */
+
+
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;

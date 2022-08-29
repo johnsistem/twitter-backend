@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req } from '@nestjs/common';
 import { TweetsService } from './tweets.service';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
@@ -7,7 +7,7 @@ import { UpdateTweetDto } from './dto/update-tweet.dto';
 export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
-  //Create a USER
+  //Create tweet
   @Post()
   create(@Body() createTweetDto: CreateTweetDto) {
     return this.tweetsService.create(createTweetDto);
