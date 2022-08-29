@@ -1,7 +1,7 @@
 //import { Order } from 'src/modules/order/entities/order.entity';
 import { Exclude } from 'class-transformer';
 import { Tweet } from 'src/modules/tweets/entities/tweet.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,  ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity()
 export class User {

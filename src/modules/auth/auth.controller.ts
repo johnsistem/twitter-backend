@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
@@ -13,6 +13,7 @@ export class AuthController {
     return this.authService.register(registerAuthDto);
   }
 
+  @UseInterceptors(ClassSerializerInterceptor)//⁡⁣⁡⁢⁢⁡⁢⁣"⁣Exclude" the password from return⁡⁡
   @Post('login')
   handleLogin(@Body() loginBody: LoginAuthDto) {
     return this.authService.login(loginBody);
