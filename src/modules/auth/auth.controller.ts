@@ -13,7 +13,7 @@ export class AuthController {
     return this.authService.register(registerAuthDto);
   }
 
-  @UseInterceptors(ClassSerializerInterceptor)//⁡⁣⁡⁢⁢⁡⁢⁣"⁣Exclude" the password from return⁡⁡
+  @UseInterceptors(ClassSerializerInterceptor)//⁡⁣⁡⁢⁢⁡⁢⁣"⁣Exclude" the password(tiene "exclude" en entity) from return⁡⁡
   @Post('login')
   handleLogin(@Body() loginBody: LoginAuthDto) {
     return this.authService.login(loginBody);

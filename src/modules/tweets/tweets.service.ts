@@ -1,31 +1,48 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm/repository/Repository';
+import { User } from '../users/entities/user.entity';
 //import { Repository } from 'typeorm';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
 import { Tweet } from './entities/tweet.entity';
 
+
 @Injectable()
 export class TweetsService {
-   constructor(
+  constructor(
     @InjectRepository(Tweet) private tweetRepository: Repository<Tweet>
-  ) { } 
+  ) { }
 
 
-  async create(createTweetDto: CreateTweetDto) {
-        
-    //const { content } = createTweetDto;
-    const tweet = this.tweetRepository.create(createTweetDto)
-      return this.tweetRepository.save(tweet); 
-    
-    
-  
+  // ⁡⁢⁣⁡⁣⁣⁢AddTweet⁡⁡
+  async AddTweet(createTweetDto: CreateTweetDto, user: User): Promise<Tweet> {
+    const { content } = createTweetDto;
+    const tweet = this.tweetRepository.create({
+      content: content,
+      user: user
+    })
+    return this.tweetRepository.save(tweet);
+
   }
 
-  findAll() {
-    return `This action returns all tweets`;
+  //⁡⁣⁣⁢GetTweets⁡
+  async GetTweets(user: User): Promise<Tweet[]> {
+    const tweets = await this.tweetRepository.find({
+      select: ['id', 'content'],
+      where: {
+        user: {
+          id: user.id,
+        }
+      },
+    })
+    return tweets
   }
+
+
+
+
+
 
   findOne(id: number) {
     return `This action returns a #${id} tweet`;

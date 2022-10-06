@@ -13,7 +13,7 @@ import { JwtStrategy } from './jwt.strategy';
   imports: [TypeOrmModule.forFeature([User]),
     JwtModule.register({
       secret: jwtConstants.secret,
-      signOptions: { expiresIn: '20h' },
+      signOptions: { expiresIn: '15m' },
     }),
   ],
   controllers: [AuthController],

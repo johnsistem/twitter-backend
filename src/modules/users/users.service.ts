@@ -1,6 +1,6 @@
-import { HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
+import { HttpStatus, Injectable, NotFoundException, Req } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { RelationId, Repository } from 'typeorm';
 import { Request, response, Response } from 'express';
 
 import { CreateUserDto } from './dto/create-user.dto';
@@ -21,15 +21,23 @@ export class UsersService {
     return this.userRepository.save(newUser)
   }
 
-  findAll() {
-    return this.userRepository.find();
+  async findAll(user:User) {
+   // const user: User = <User>req.user;
+    const {id } = user;
+   
+ 
+    return 'hola'
   }
 
   
 
-  async findOne(id:number):Promise<User>{
-    //const {email } = userLoginAuthDto
-    const user = await this.userRepository.findOne({ where: { id } } )
+  async findOne(id:number) {
+    //console.log('id',id)
+    const user = await this.userRepository.findOne({
+      where: {
+      id
+    } })
+    console.log('userr:',user.id)
     return user
   }
 

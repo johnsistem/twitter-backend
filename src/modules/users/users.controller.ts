@@ -1,9 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, UseGuards, Req } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-
+//import { User } from './entities/user.entity';
+import { Request } from 'express';
+import { GetUser} from '../users/decorators/user.decorator';
+import { User } from './entities/user.entity';
 @Controller('users')
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -13,11 +16,21 @@ export class UsersController {
     return this.usersService.create(createUserDto);
   }
 
+  //GET ALL TWEETS OF USER
    @UseGuards(JwtAuthGuard)
-  @Get()
-  findAll() {
-    return 'Get all users'
+   @Get('tweets')
+   async findAll(@GetUser() user:User) {
+     //const user: User = <User>req.user;
+    // const user=req.user.id;
+    // const usercurrent=await this.usersService.findOne(user.id)
+     //console.log(usercurrent)
+    // const userid=this.usersService.findOne(user.id)
+     return this.usersService.findAll(user)
+     //return usercurrent
   }
+
+
+
 
   @Get(':id')
   findOne(@Param('id') id: number) {

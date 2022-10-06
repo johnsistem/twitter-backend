@@ -1,22 +1,37 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseInterceptors, ClassSerializerInterceptor } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseInterceptors, ClassSerializerInterceptor, UseGuards, Query } from '@nestjs/common';
+import { Request } from 'express';
 import { TweetsService } from './tweets.service';
 import { CreateTweetDto } from './dto/create-tweet.dto';
 import { UpdateTweetDto } from './dto/update-tweet.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { Tweet } from './entities/tweet.entity';
+import { GetUser } from '../users/decorators/user.decorator';
+import { GetTweetFilterDto } from './dto/get-tweet-filter-dto';
+import { User } from '../users/entities/user.entity';
 
 @Controller('tweets')
+  
 export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
-  
+  @UseGuards(JwtAuthGuard) 
   @Post()
-  create(@Body() createTweetDto: CreateTweetDto) {
-    return this.tweetsService.create(createTweetDto);
+  create(@GetUser() user:User,@Body() createTweetDto: CreateTweetDto): Promise<Tweet> {
+    return this.tweetsService.AddTweet(createTweetDto,user);
   }
 
-  @Get()
-  findAll() {
-    return this.tweetsService.findAll();
+  @UseGuards(JwtAuthGuard)
+  @Get()   
+  findAll(@Req() req:Request) {
+    const user: User = <User>req.user;
+  console.log(req.user)
+    return this.tweetsService.GetTweets(user);
   }
+
+
+
+
+
 
   @Get(':id')
   findOne(@Param('id') id: string) {
