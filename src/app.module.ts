@@ -6,6 +6,7 @@ import { UsersModule } from './modules/users/users.module';
 import { TweetsModule } from './modules/tweets/tweets.module';
 //import { PostgresModule } from 'nest-postgres';
 import { AuthModule } from './modules/auth/auth.module';
+import { FollowersModule } from './modules/followers/followers.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { AuthModule } from './modules/auth/auth.module';
     }),
     UsersModule,
     TweetsModule,
-    AuthModule],
+    AuthModule,
+    FollowersModule],
   controllers: [AppController],
   providers: [AppService],
 })

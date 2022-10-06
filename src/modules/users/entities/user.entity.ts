@@ -1,18 +1,11 @@
 //import { Order } from 'src/modules/order/entities/order.entity';
 import { Exclude } from 'class-transformer';
+import { Follower } from 'src/modules/followers/entities/follower.entity';
 import { Tweet } from 'src/modules/tweets/entities/tweet.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,  ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity()
-export class User {
-   @PrimaryGeneratedColumn('increment')
-   id: number;
-
-   @Column({ nullable: false, type: 'varchar' })
-   username: string;
-
-   @Column({ nullable: false, type: 'varchar' })
-   email: string;
+export class User {  
   
    @Exclude()
    @Column({ nullable: false, type: 'varchar' })
@@ -31,8 +24,13 @@ export class User {
    //@OneToMany(() => Order, (order) => order.user)
    //order: Order[]
 
+ //USER=>TWEET
     @OneToMany(() => Tweet, (tweet) => tweet.user)
    tweets: Tweet[] 
+
+   //USER=>FOLLOWER
+    @OneToMany(() => Follower, (follower) => follower.user)
+   followers: Follower[] 
 
 
    //primera funcion apunto a la entidad a la que se va a relacionar y la segunda apunta  al campo
