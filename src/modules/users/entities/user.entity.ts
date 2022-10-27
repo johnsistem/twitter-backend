@@ -6,7 +6,15 @@ import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,  ManyToOne, J
 
 @Entity()
 export class User {  
-  
+   @PrimaryGeneratedColumn('increment')
+   id: number;
+
+   @Column({ nullable: false, type: 'varchar' })
+   username: string;
+
+   @Column({ nullable: false, type: 'varchar' })
+   email: string;
+   
    @Exclude()
    @Column({ nullable: false, type: 'varchar' })
    password: string;  

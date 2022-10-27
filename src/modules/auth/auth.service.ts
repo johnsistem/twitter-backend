@@ -5,7 +5,7 @@ import{compare,genSalt,hash} from 'bcrypt'
 import { Repository } from 'typeorm';
 import { User } from '../users/entities/user.entity';
 
-import { UsersService } from '../users/users.service';
+//import { UsersService } from '../users/users.service';
 import { LoginAuthDto } from './dto/login-auth.dto';
 import { RegisterAuthDto } from './dto/register-auth.dto';
 
