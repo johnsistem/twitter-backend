@@ -1,22 +1,24 @@
 import { User } from "src/modules/users/entities/user.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity()
-export class Follower {
+export class Followers {
 
    @PrimaryGeneratedColumn('increment')
    id: number;
 
-   @Column({ nullable: false, type: 'varchar' })
-   username: string;
-
-   @Column({ nullable: false, type: 'varchar' })
-   email: string;
 
    @ManyToOne(() => User, (user) => user.followers, { cascade: true })
-   user: User;
+   @JoinColumn({ name: "follower_id" })
+   follower: User;
+
+   @ManyToOne(() => User, (user) => user.followers, { cascade: true })
+   @JoinColumn({ name: "following_id" })
+   following: User;
+
 }
+
 
 
 

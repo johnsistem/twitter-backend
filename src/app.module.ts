@@ -12,12 +12,12 @@ import { FollowersModule } from './modules/followers/followers.module';
   imports: [
     TypeOrmModule.forRoot({
      // connectionString: 'postgresql://postgres:pass123@localhost:5432/nest',
-      type: 'mysql',
+      type: 'postgres',
       host: 'localhost',
-      port: 3306,
-     username: 'root',
-     password: "root",
-     database: 'twitterdb',
+      port: 5432,
+     username: 'postgres',
+     password: "postgres",
+     database: 'postgres',
      /*  username: 'postgres',
       password: 'mysecretpassword', */      
        

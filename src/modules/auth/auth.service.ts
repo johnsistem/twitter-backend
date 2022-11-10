@@ -62,7 +62,8 @@ export class AuthService {
 
     const plainToHash = await hash(password, 10)
     userBody = { ...userBody, password: plainToHash }
-    return this.userRepository.create(userBody)
+  const newUser= this.userRepository.create(userBody)
+    return await this.userRepository.save(newUser)
 //return 'register saved'
     /* const userParse = {
       ...user,

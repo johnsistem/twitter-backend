@@ -1,6 +1,6 @@
 //import { Order } from 'src/modules/order/entities/order.entity';
 import { Exclude } from 'class-transformer';
-import { Follower } from 'src/modules/followers/entities/follower.entity';
+import { Followers } from 'src/modules/followers/entities/follower.entity';
 import { Tweet } from 'src/modules/tweets/entities/tweet.entity';
 import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,  ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
@@ -37,9 +37,9 @@ export class User {
    tweets: Tweet[] 
 
    //USER=>FOLLOWER
-    @OneToMany(() => Follower, (follower) => follower.user)
-   followers: Follower[] 
-
+    @OneToMany(() => Followers, (follower) => follower.follower)
+   followers: Followers[] 
+followerf
 
    //primera funcion apunto a la entidad a la que se va a relacionar y la segunda apunta  al campo
    //que esta relacionado con la entidad que se esta implementando

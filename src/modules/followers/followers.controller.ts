@@ -1,15 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Req, UseGuards } from '@nestjs/common';
 import { FollowersService } from './followers.service';
 import { CreateFollowerDto } from './dto/create-follower.dto';
 import { UpdateFollowerDto } from './dto/update-follower.dto';
+import { GetUser } from '../users/decorators/user.decorator';
+import { User } from '../users/entities/user.entity';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import * as request from 'supertest';
 
 @Controller('followers')
 export class FollowersController {
-  constructor(private readonly followersService: FollowersService) {}
+  constructor(private readonly followersService: FollowersService) { }
 
+
+
+  @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createFollowerDto: CreateFollowerDto) {
-    return this.followersService.create(createFollowerDto);
+  create(@GetUser() user: User, @Body() createFollowerDto: CreateFollowerDto) {
+    
+    //console.log(following)
+    //return `This action returns a # ${request} follower`;
+    return this.followersService.create(user, createFollowerDto);
   }
 
   @Get()
