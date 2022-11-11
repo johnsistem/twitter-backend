@@ -15,27 +15,39 @@ export class FollowersService {
     @InjectRepository(Followers) private followerRepository: Repository<Followers>
   ) { }
 
-//CREATE Follower
-  async create(user: User,createFollowerDto: CreateFollowerDto){
+  //CREATE Follower
+  async create(user: User, createFollowerDto: CreateFollowerDto) {
     const { following } = createFollowerDto;
     const { id } = user;
     //console.log(following)
     const newFollower = this.followerRepository.create({
-      follower: { id },
-      following:following
+      followers: { id },
+      following: following
     })
     console.log(newFollower.following)
-    console.log(newFollower.follower)
-   return await this.followerRepository.save(newFollower)
-   
+    console.log(newFollower.followers)
+    return await this.followerRepository.save(newFollower)
+
   }
 
-  findAll() {
-    return `This action returns all followers`;
+ async findAll(user:User) {
+    const {id}=user
+    return await this.followerRepository.find({
+      where:{
+        followers:user
+      }
+    })
+    return `This action returns a # ${id} followers`;
   }
 
-  findOne(id: number) {
-    return `This action returns a # ${id} follower`;
+
+  findFollowers(id: number) {
+    return `This action returns a # ${id} followers`;
+
+  }
+  findFollowings(id: number) {
+    return `This action returns a # ${id} followings`;
+
   }
 
   update(id: number, updateFollowerDto: UpdateFollowerDto) {

@@ -2,10 +2,10 @@
 import { Exclude } from 'class-transformer';
 import { Followers } from 'src/modules/followers/entities/follower.entity';
 import { Tweet } from 'src/modules/tweets/entities/tweet.entity';
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn,  ManyToOne, JoinColumn, OneToMany } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToOne, JoinColumn, OneToMany } from 'typeorm';
 
 @Entity()
-export class User {  
+export class User {
    @PrimaryGeneratedColumn('increment')
    id: number;
 
@@ -14,32 +14,31 @@ export class User {
 
    @Column({ nullable: false, type: 'varchar' })
    email: string;
-   
+
    @Exclude()
    @Column({ nullable: false, type: 'varchar' })
-   password: string;  
+   password: string;
 
-  /*  @Column({ nullable: false })
-   profilePicture: string;   
-
-   @Column()
-   followers: User[];
-
-   @Column()
-   following: User[]; */
+   /*  @Column({ nullable: false })
+    profilePicture: string;   
+ 
+    @Column()
+    followers: User[];
+ 
+    @Column()
+    following: User[]; */
 
    //relation with entity Order
    //@OneToMany(() => Order, (order) => order.user)
    //order: Order[]
 
- //USER=>TWEET
-    @OneToMany(() => Tweet, (tweet) => tweet.user)
-   tweets: Tweet[] 
+   //USER=>TWEET
+   @OneToMany(() => Tweet, (tweet) => tweet.user)
+   tweets: Tweet[]
 
    //USER=>FOLLOWER
-    @OneToMany(() => Followers, (follower) => follower.follower)
-   followers: Followers[] 
-followerf
+   @OneToMany(() => Followers, (follower) => follower.followers)
+   followers: Followers[]
 
    //primera funcion apunto a la entidad a la que se va a relacionar y la segunda apunta  al campo
    //que esta relacionado con la entidad que se esta implementando
@@ -49,7 +48,7 @@ followerf
 
    @CreateDateColumn()
    CreatedAt: Date;
-  
+
 }
 
 

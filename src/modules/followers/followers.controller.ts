@@ -16,21 +16,32 @@ export class FollowersController {
   @UseGuards(JwtAuthGuard)
   @Post()
   create(@GetUser() user: User, @Body() createFollowerDto: CreateFollowerDto) {
-    
+
     //console.log(following)
     //return `This action returns a # ${request} follower`;
     return this.followersService.create(user, createFollowerDto);
   }
 
   @Get()
-  findAll() {
-    return this.followersService.findAll();
+  @UseGuards(JwtAuthGuard)
+  findAll(@GetUser() user: User) {
+    return this.followersService.findAll(user);
   }
 
+  //⁡⁢⁣⁡⁣⁣⁢Followers⁡⁡
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.followersService.findOne(+id);
+  getFollowers(@Param('id') id: string) {
+    return this.followersService.findFollowers(+id);
   }
+
+
+  //⁡⁢⁣⁡⁣⁣⁢Followings⁡⁡
+  /* @UseGuards(JwtAuthGuard)
+  @Get(':id')
+  getFollowing(@Param('id') id: string) {
+    return this.followersService.findFollowings(+id);
+  } */
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFollowerDto: UpdateFollowerDto) {

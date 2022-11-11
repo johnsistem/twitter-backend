@@ -11,7 +11,7 @@ export class Followers {
 
    @ManyToOne(() => User, (user) => user.followers, { cascade: true })
    @JoinColumn({ name: "follower_id" })
-   follower: User;
+   followers: User;
 
    @ManyToOne(() => User, (user) => user.followers, { cascade: true })
    @JoinColumn({ name: "following_id" })

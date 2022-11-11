@@ -5,11 +5,11 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 //import { User } from './entities/user.entity';
 import { Request } from 'express';
-import { GetUser} from '../users/decorators/user.decorator';
+import { GetUser } from '../users/decorators/user.decorator';
 import { User } from './entities/user.entity';
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
@@ -17,16 +17,16 @@ export class UsersController {
   }
 
   //GET ALL TWEETS OF USER
-   @UseGuards(JwtAuthGuard)
-   @Get('tweets')
-   async findAll(@GetUser() user:User) {
-     //const user: User = <User>req.user;
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async findAll() {
+    //const user: User = <User>req.user;
     // const user=req.user.id;
     // const usercurrent=await this.usersService.findOne(user.id)
-     //console.log(usercurrent)
+    //console.log(usercurrent)
     // const userid=this.usersService.findOne(user.id)
-     return this.usersService.findAll(user)
-     //return usercurrent
+    return this.usersService.findAll()
+    //return usercurrent
   }
 
 
@@ -44,7 +44,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-    @HttpCode(HttpStatus.NO_CONTENT)
+  @HttpCode(HttpStatus.NO_CONTENT)
   remove(@Param('id') id: string) {
     return this.usersService.remove(+id);
   }
