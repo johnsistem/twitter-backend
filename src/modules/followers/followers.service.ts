@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { Repository, RelationId } from 'typeorm';
 
 import { CreateFollowerDto } from './dto/create-follower.dto';
 import { UpdateFollowerDto } from './dto/update-follower.dto';
@@ -30,14 +30,28 @@ export class FollowersService {
 
   }
 
- async findAll(user:User) {
+ async findAll(user:User): Promise<Followers[]>{
     const {id}=user
-    return await this.followerRepository.find({
-      where:{
-        followers:user
-      }
+   return await this.followerRepository.find({
+     
+      relations: {
+       following: true,        
+        
+       
+     },
+     where: {
+        
+      followers: {
+          id
+       },
+       
+       
+     }
+     
+    
+      
     })
-    return `This action returns a # ${id} followers`;
+   // return `This action returns a # ${id} followers`;
   }
 
 
