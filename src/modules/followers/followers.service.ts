@@ -30,45 +30,60 @@ export class FollowersService {
 
   }
 
- async findAll(user:User): Promise<Followers[]>{
-    const {id}=user
-   return await this.followerRepository.find({
-     
+  async findFollowers(user: User): Promise<Followers[]> {
+    const { id } = user
+    return await this.followerRepository.find({
+
       relations: {
-       following: true,        
-        
-       
-     },
-     where: {
-        
-      followers: {
+        followers: true
+      },
+
+      where: {
+        following: {
           id
-       },
-       
-       
-     }
-     
-    
-      
+        }
+      },
     })
-   // return `This action returns a # ${id} followers`;
-  }
-
-
-  findFollowers(id: number) {
-    return `This action returns a # ${id} followers`;
 
   }
-  findFollowings(id: number) {
-    return `This action returns a # ${id} followings`;
 
-  }
+
+
+   async findFollowings(user: User): Promise<Followers[]> {
+    const { id } = user
+    return await this.followerRepository.find({
+
+      relations: {
+        following: true
+      },
+
+      where: {
+        followers: {
+          id
+        }
+      },
+    })
+
+  } 
+
+
+  /*   findFollowers(id: number) {
+      return `This action returns a # ${id} followers`;
+  
+    } */
+
+
+  /*   findFollowings(id: number) {
+      return `This action returns a # ${id} followings`;
+  
+    } */
 
   update(id: number, updateFollowerDto: UpdateFollowerDto) {
     return `This action updates a #${id} follower`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} follower`;
+  async remove(id: number) {
+    const item = await this.followerRepository.findBy({ id })
+    return this.followerRepository.remove(item);
   }
 }

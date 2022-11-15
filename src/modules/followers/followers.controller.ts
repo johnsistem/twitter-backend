@@ -22,18 +22,27 @@ export class FollowersController {
     return this.followersService.create(user, createFollowerDto);
   }
 
-  @Get()
+   
   @UseGuards(JwtAuthGuard)
-  findAll(@GetUser() user: User) {
-    return this.followersService.findAll(user);
+ @Get('follower')
+  findFollowers(@GetUser() user: User) {
+    return this.followersService.findFollowers(user);
   }
 
+
+  
+   @UseGuards(JwtAuthGuard)
+  @Get('following')
+   findFollowings(@GetUser() user: User) {
+     return this.followersService.findFollowings(user);
+   } 
+
   //⁡⁢⁣⁡⁣⁣⁢Followers⁡⁡
-  @UseGuards(JwtAuthGuard)
-  @Get(':id')
-  getFollowers(@Param('id') id: string) {
-    return this.followersService.findFollowers(+id);
-  }
+  /*  @UseGuards(JwtAuthGuard)
+   @Get(':id')
+   getFollowers(@Param('id') id: string) {
+     return this.followersService.findFollowers(+id);
+   } */
 
 
   //⁡⁢⁣⁡⁣⁣⁢Followings⁡⁡

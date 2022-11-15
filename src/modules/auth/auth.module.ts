@@ -11,12 +11,12 @@ import { JwtStrategy } from './jwt.strategy';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]),
-    JwtModule.register({
-      secret: jwtConstants.secret,
-      signOptions: { expiresIn: '15m' },
-    }),
+  JwtModule.register({
+    secret: jwtConstants.secret,
+    signOptions: { expiresIn: '30m' },
+  }),
   ],
   controllers: [AuthController],
-  providers: [AuthService,UsersService,JwtStrategy]
+  providers: [AuthService, UsersService, JwtStrategy]
 })
-export class AuthModule {}
+export class AuthModule { }
