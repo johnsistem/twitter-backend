@@ -15,8 +15,8 @@ export class FollowersService {
     @InjectRepository(Followers) private followerRepository: Repository<Followers>
   ) { }
 
-  //CREATE Follower
-  async create(user: User, createFollowerDto: CreateFollowerDto) {
+  //FOLLOW
+  async follow(user: User, createFollowerDto: CreateFollowerDto) {
     const { following } = createFollowerDto;
     const { id } = user;
     //console.log(following)
@@ -29,13 +29,37 @@ export class FollowersService {
     return await this.followerRepository.save(newFollower)
 
   }
+  
+  
+   //UNFOLLOW
+  async unfollow(user: User, createFollowerDto: CreateFollowerDto) {
+    const { id } = user;
+    const {following}=createFollowerDto;
+    console.log(following)
+    const newFollower = await this.followerRepository.findOne({
+where:{
+  followers:{
+    id
+  }
+}
+    })
+    return newFollower
+   // return await this.followerRepository.remove(newFollower)
 
+  }
+
+
+
+
+//FIND FOLLOWERS
   async findFollowers(user: User): Promise<Followers[]> {
-    const { id } = user
+    const { id,username } = user
     return await this.followerRepository.find({
 
-      relations: {
-        followers: true
+      relations: {        
+        followers:{          
+        },
+        
       },
 
       where: {
@@ -43,12 +67,19 @@ export class FollowersService {
           id
         }
       },
+      
+      select:{
+        followers:{
+          username:true,
+          
+        }
+      }
     })
 
   }
 
 
-
+//FIND FOLLOWINGS
    async findFollowings(user: User): Promise<Followers[]> {
     const { id } = user
     return await this.followerRepository.find({
@@ -62,6 +93,14 @@ export class FollowersService {
           id
         }
       },
+      
+      select:{
+        following:{
+          username:true,
+          id:true
+        
+        }
+      }
     })
 
   } 
