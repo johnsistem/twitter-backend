@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, RelationId } from 'typeorm';
 
@@ -19,10 +19,11 @@ export class FollowersService {
   async follow(user: User, createFollowerDto: CreateFollowerDto) {
     const { following } = createFollowerDto;
     const { id } = user;
+    
     //console.log(following)
     const newFollower = this.followerRepository.create({
-      followers: { id },
-      following: following
+     followers: { id },
+     following: following
     })
     console.log(newFollower.following)
     console.log(newFollower.followers)
@@ -32,16 +33,14 @@ export class FollowersService {
   
   
    //UNFOLLOW
-  async unfollow(user: User, createFollowerDto: CreateFollowerDto) {
+  async unfollow(user: User, createFollowerDto:CreateFollowerDto) {
     const { id } = user;
     const {following}=createFollowerDto;
-    console.log(following)
+    console.log(IDBKeyRange)
+    
     const newFollower = await this.followerRepository.findOne({
-where:{
-  followers:{
-    id
-  }
-}
+
+
     })
     return newFollower
    // return await this.followerRepository.remove(newFollower)
@@ -105,11 +104,29 @@ where:{
 
   } 
 
-
-  /*   findFollowers(id: number) {
-      return `This action returns a # ${id} followers`;
+//FIND A FOLLOWER
+    async findAFollower(id: number){
+     const myFollowing=await this.followerRepository.findOne({
+        
+        relations:{
+         following:true 
+        },
+        where:{
+          id:id
+        },
+        select:{
+          following:{
+            username:true
+          }
+        }
+               
+        
+      })
+     if (!myFollowing) throw new NotFoundException('Este Id no existe');
+        return myFollowing;
+    //  return `This action returns a # ${id} followers`;
   
-    } */
+    } 
 
 
   /*   findFollowings(id: number) {

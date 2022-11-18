@@ -28,7 +28,7 @@ export class FollowersController {
   @UseGuards(JwtAuthGuard)
   @Post('unfollow')
   unfollow(@GetUser() user: User, @Body() createFollowerDto: CreateFollowerDto) {
-
+//const idunfollow=createFollowerDto
     //console.log(following)
    // return `This action returns unfollow`;
     return this.followersService.unfollow(user, createFollowerDto);
@@ -49,13 +49,15 @@ export class FollowersController {
    findFollowings(@GetUser() user: User) {
      return this.followersService.findFollowings(user);
    } 
+   
 
-  //⁡⁢⁣⁡⁣⁣⁢Followers⁡⁡
-  /*  @UseGuards(JwtAuthGuard)
+  //⁡⁢⁣⁡⁣⁣⁢UNFOLLOWER ID
+   @UseGuards(JwtAuthGuard)
    @Get(':id')
    getFollowers(@Param('id') id: string) {
-     return this.followersService.findFollowers(+id);
-   } */
+     return this.followersService.findAFollower(+id)
+    // return this.followersService.findFollowers(+id);
+   } 
 
 
   //⁡⁢⁣⁡⁣⁣⁢Followings⁡⁡
