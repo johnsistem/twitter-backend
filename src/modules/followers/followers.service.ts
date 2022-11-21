@@ -31,26 +31,11 @@ export class FollowersService {
 
   }
   
-  
-   //UNFOLLOW
-  async unfollow(user: User, createFollowerDto:CreateFollowerDto) {
-    const { id } = user;
-    const {following}=createFollowerDto;
-    console.log(IDBKeyRange)
-    
-    const newFollower = await this.followerRepository.findOne({
-
-
-    })
-    return newFollower
-   // return await this.followerRepository.remove(newFollower)
-
-  }
+   
 
 
 
-
-//FIND FOLLOWERS
+//FIND MY FOLLOWERS
   async findFollowers(user: User): Promise<Followers[]> {
     const { id,username } = user
     return await this.followerRepository.find({
@@ -78,7 +63,7 @@ export class FollowersService {
   }
 
 
-//FIND FOLLOWINGS
+//FIND MY FOLLOWINGS
    async findFollowings(user: User): Promise<Followers[]> {
     const { id } = user
     return await this.followerRepository.find({
@@ -104,35 +89,23 @@ export class FollowersService {
 
   } 
 
-//FIND A FOLLOWER
-    async findAFollower(id: number){
-     const myFollowing=await this.followerRepository.findOne({
-        
-        relations:{
-         following:true 
-        },
-        where:{
-          id:id
-        },
-        select:{
-          following:{
-            username:true
-          }
-        }
-               
-        
-      })
-     if (!myFollowing) throw new NotFoundException('Este Id no existe');
-        return myFollowing;
+
+
+//DELETE FOLLOWING
+    async deleteFollowing(id: number){
+    const item = await this.followerRepository.findBy({ id })
+   // if (!item) throw new NotFoundException('Este Id no existe');
+        return 'Este Id no existe';
+ //   return this.followerRepository.remove(item);
+    
     //  return `This action returns a # ${id} followers`;
   
     } 
 
 
-  /*   findFollowings(id: number) {
-      return `This action returns a # ${id} followings`;
-  
-    } */
+
+
+//-------------------------------------------------
 
   update(id: number, updateFollowerDto: UpdateFollowerDto) {
     return `This action updates a #${id} follower`;
