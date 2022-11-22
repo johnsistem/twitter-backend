@@ -67,11 +67,11 @@ export class FollowersService {
    async findFollowings(user: User): Promise<Followers[]> {
     const { id } = user
     return await this.followerRepository.find({
-
+      
       relations: {
         following: true
       },
-
+      
       where: {
         followers: {
           id

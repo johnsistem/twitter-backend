@@ -14,6 +14,7 @@ import { User } from '../users/entities/user.entity';
 export class TweetsController {
   constructor(private readonly tweetsService: TweetsService) {}
 
+  //CREATE POST
   @UseGuards(JwtAuthGuard) 
   @Post()
   create(@GetUser() user:User,@Body() createTweetDto: CreateTweetDto): Promise<Tweet> {
@@ -21,7 +22,7 @@ export class TweetsController {
   }
   
   
-
+//GET ALL MY POSTS
   @UseGuards(JwtAuthGuard)
   @Get()   
   findAll(@Req() req:Request) {
@@ -31,19 +32,21 @@ export class TweetsController {
   }
 
 
-
-
-
-
+//GET A POST BY ID
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: string) {
+   // return `This action updates a #${id} tweet`;
     return this.tweetsService.findOne(+id);
   }
 
+  //UPDATE TWEET
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateTweetDto: UpdateTweetDto) {
     return this.tweetsService.update(+id, updateTweetDto);
   }
+
+
 
   @Delete(':id')
   remove(@Param('id') id: string) {
