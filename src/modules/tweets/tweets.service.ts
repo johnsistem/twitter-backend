@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException, Req } from '@nestjs/common';
+import { Injectable, NotFoundException, Patch, Req } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { isEmpty } from 'class-validator';
 import { Any } from 'typeorm';
@@ -38,31 +38,39 @@ export class TweetsService {
         }
       },
     })
-    
-   // if(tweets[0]) throw new NotFoundException(404,"not found");
-    
+
+    // if(tweets[0]) throw new NotFoundException(404,"not found");
+
     return tweets
   }
 
 
- //FIND A TWEET
+  //FIND A TWEET
   async findOne(id: number) {
-   // return `This action returns a #${id} tweet`;
-  const item=await this.tweetRepository.findBy({id})
-  return item;
+    // return `This action returns a #${id} tweet`;
+    const item = await this.tweetRepository.findBy({ id })
+    return item;
   }
 
 
   //UPDATE TWEET
-  async update(id: number, updateTweetDto: UpdateTweetDto){
-   const {content}=updateTweetDto
-   const tweet=await this.tweetRepository.findBy({id})
-   return tweet
-  
-  //return item;
+  async update(id: number, updateTweetDto: UpdateTweetDto) {
+    const { content } = updateTweetDto;
+    const item = this.tweetRepository.update(id, { content: content })
+    return item
+
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} tweet`;
+
+  //REMOVE TWEET BY ID
+  async remove(id: number) {
+    const tweet = await this.tweetRepository.findOne({
+      where: {
+        id: id
+      }
+    })
+    await this.tweetRepository.remove(tweet)
+    return `Deleted tweet  #${id} `;
+
   }
 }
