@@ -9,6 +9,9 @@ export class User {
    @PrimaryGeneratedColumn('increment')
    id: number;
 
+  // @Column({ type: "uuid",unique:true})
+   //uui: string;
+
    @Column({ nullable: false, type: 'varchar' })
    username: string;
 
