@@ -1,3 +1,4 @@
+import { Retweet } from '../../retweets/entities/retweet.entity';
 //import { Order } from 'src/modules/order/entities/order.entity';
 import { Exclude } from 'class-transformer';
 import { Followers } from 'src/modules/followers/entities/follower.entity';
@@ -9,7 +10,7 @@ export class User {
    @PrimaryGeneratedColumn('increment')
    id: number;
 
-  // @Column({ type: "uuid",unique:true})
+   // @Column({ type: "uuid",unique:true})
    //uui: string;
 
    @Column({ nullable: false, type: 'varchar' })
@@ -42,6 +43,10 @@ export class User {
    //USER=>FOLLOWER
    @OneToMany(() => Followers, (follower) => follower.followers)
    followers: Followers[]
+
+   //USER=>RETWEET
+   @OneToMany(() => Retweet, (retweet) => retweet.retweet)
+   retweet: Retweet[]
 
    //primera funcion apunto a la entidad a la que se va a relacionar y la segunda apunta  al campo
    //que esta relacionado con la entidad que se esta implementando

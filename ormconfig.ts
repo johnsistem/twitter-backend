@@ -16,8 +16,10 @@ const source = new DataSource({
   synchronize: false,
   logging: false,
   migrations: ['src/database/migrations/*.ts'],
+  //migrations: ["dist/database/migrations/**/*{.js,.ts}"],
   migrationsTableName: 'migrations',
-  entities: ['src/**/*.entity.ts'],
+  entities: ['dist/**/*.entity{.ts,.js}'],
+  //entities: ["dist/modules/entities/**/*{.js,.ts}"],
 });
 
 export default source;

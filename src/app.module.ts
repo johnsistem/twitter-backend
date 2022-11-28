@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 
 import { AppController } from './app.controller';
-//import { TypeOrmModule } from '@nestjs/typeorm';
+import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppService } from './app.service';
 import config from './config/index';
 
@@ -13,6 +13,8 @@ import { TweetsModule } from './modules/tweets/tweets.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { FollowersModule } from './modules/followers/followers.module';
 import { DatabaseModule } from './database/database.module';
+import { RetweetsModule } from './modules/retweets/retweets.module';
+//import { RetweetsModule } from './modules/retweets/retweets.module';
 
 @Module({
   imports: [
@@ -32,8 +34,10 @@ import { DatabaseModule } from './database/database.module';
     UsersModule,
     TweetsModule,
     AuthModule,
-    FollowersModule],
+    FollowersModule,
+    RetweetsModule,
+    RetweetsModule],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

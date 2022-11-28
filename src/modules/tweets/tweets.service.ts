@@ -69,7 +69,14 @@ export class TweetsService {
         id: id
       }
     })
+
     await this.tweetRepository.remove(tweet)
+    
+   // if (!postExist) throw new NotFoundException('Este post no existe');
+   // const updatedPost = Object.assign(postExist, updatePostDto);
+
+   // return await this._postRepository.save(updatedPost);
+
     return `Deleted tweet  #${id} `;
 
   }

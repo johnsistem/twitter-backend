@@ -22,10 +22,10 @@
     "typeorm": "typeorm-ts-node-commonjs -d ./ormconfig.ts",
     "migrations:create": "typeorm-ts-node-commonjs migration:create",
     "migrations:generate": "yarn typeorm migration:generate",
-    "migrations:run": "npm typeorm migration:run",
-    "migrations:show": "npm typeorm migration:show",
+    "migrations:run": "yarn typeorm migration:run",
+    "migrations:show": "yarn typeorm migration:show",
     "migrations:drop": "npm typeorm schema:drop",
-    "migrations:revert": "npm typeorm schema:revert"
+    "migrations:revert": "yarn typeorm schema:revert"
   },
   "dependencies": {
     "@nestjs/common": "^8.0.0",
